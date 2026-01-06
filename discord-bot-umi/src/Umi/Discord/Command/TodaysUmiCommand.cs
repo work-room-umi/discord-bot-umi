@@ -57,12 +57,23 @@ namespace Umi.Discord.Command
                 return m.Groups[2].Value;
             })
             .Distinct()
-            .ToArray();
+            .ToList();
             if(wids == null)
             {
                 return "ワールドが見つかりませんでした";
             }
-            var n = random.Next(wids.Length);
+            if (DateTime.Now.DayOfYear % 3 == 0)
+            {
+                Console.WriteLine("DeepBlue chance day!");
+                Console.WriteLine($"Worlds count {wids.Count}");
+                var c = wids.Count * 3;
+                for (int i = 0; i < c; i++)
+                {
+                    wids.Add("wrld_f7a383bc-c925-4696-85c2-2996c0a40112");
+                }
+            }
+            Console.WriteLine($"Worlds count {wids.Count}");
+            var n = random.Next(wids.Count);
             var wid = wids[n];
             var link = new StringBuilder("https://vrchat.com/home/launch?worldId=");
             link.Append(wid);
